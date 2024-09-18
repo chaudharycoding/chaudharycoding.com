@@ -152,6 +152,7 @@ Over the summer, I worked on a research project that focused on optimizing convo
     className="vertical-timeline-element--work"
     contentStyle={{ background: '#415A77', color: '#fff' }}
     contentArrowStyle={{ borderRight: '7px solid rgb(255, 255, 255)' }}
+    
     date="June 2024 - Aug 2024"
     iconStyle={{ background: 'rgb(255, 255, 255)', color: '#fff' }}
     icon={
