@@ -1,26 +1,32 @@
+"use client"
+
 import Image from 'next/image'
 import {AiFillGithub, AiFillLinkedin, AiFillHome} from 'react-icons/ai'
 import {FaEarlybirds, FaHandPeace} from 'react-icons/fa'
 import {BsTerminalFill} from 'react-icons/bs'
 import {SiTensorflow, SiPytorch, SiJulia, SiPython} from 'react-icons/si'
+import { VerticalTimelineElement, VerticalTimeline }  from 'react-vertical-timeline-component';
+import 'react-vertical-timeline-component/style.min.css';
+
+
 import Link from 'next/link';
 
 export default function Home() {
   return (
     
     <div>
-      <main className='bg-black px-10 md:px-20 lg:px-60'>
+      <main className='bg-[#003049] px-10 md:px-20 lg:px-60'>
 
         <section>
           <nav className='pt-10 pb-2 flex justify-between'>
-            <h1 className='text-xl font-medium text-white'>Muhammad Zaeem Chaudhary</h1>
+            <h1 className='text-white font-black md:text-[40px] sm:text-[30px] xs:text-[30px] text-[20px]'>Muhammad Zaeem Chaudhary</h1>
             <ul className='flex items-center'>
-              <Link className='hover:text-green-500 ml-3 md:ml- text-white'  href="#Experience">Experience</Link>
-              <Link className='hover:text-green-500 ml-3 md:ml- text-white' href="#Projects">Projects</Link>
-              <Link className='hover:text-green-500 ml-3 md:ml-5 text-white' href="#Contact">Contact</Link>
+              <Link className=' ml-3 md:ml- text-white'  href="#Experience">Experience</Link>
+              <Link className=' ml-3 md:ml- text-white' href="#Projects">Projects</Link>
+              <Link className=' ml-3 md:ml-5 text-white' href="#Contact">Contact</Link>
 
-              <button className="text-green-500 outline outline-2 outline-green-500 hover:bg-green-500 hover:text-white rounded px-4 py-1 ml-5 md:ml-8"> 
-                <a href="Mohsin_Shah_Resume.pdf" target="_blank">Resume </a>
+              <button className="text-[#C0D6DF] outline outline-2 outline-white hover:bg-[#415A77] hover-text:  rounded px-4 py-1 ml-5 md:ml-8"> 
+                <a href="Muhammad Zaeem Chaudhary Resume .pdf" target="_blank">Resume </a>
               </button>
             </ul>
           </nav>
@@ -28,125 +34,268 @@ export default function Home() {
           
           <div className='pb-10'>
             <p className='text-base py-4 leading-8 text-white'>
-            Hello, my name is Zaeem. I’m a computer science and math double major at the University of Massachusetts Amherst.
+            Hello, my name is Zaeem. I’m a Computer Science and Mathematics double major at the University of Massachusetts Amherst, with a focus on artificial intelligence and data science.
             </p>
             <p className='text-base py-4 leading-8 text-white'>
-            Currently, I’m working on two research projects relating to AI. One is with Professor Edward A. Rietman on reservoir computers built from oscillatory neural networks. Here we study the applications and dynamics of two-dimensional lattices formed with Nv-neurons, which are units constructed from Schmitt-triggers, capacitors, and resistors. The other project is under Professor Jaime J. Dávila, relating to NLP and deep learning. Where we compare various transformer-based multimodal models such as BLIP, GIT, and our custom model built with BERT encodings, EfficientNet, and LSTMs to generate prompts given AI-generated images.
+            Currently, I am working with Professor Hamed Zamani at the Center for Intelligent Information Retrieval as a research fellow, focusing on developing methods and techniques for making large language models more useful for individuals through personalization. 
+Over the summer, I worked on a research project that focused on optimizing convolutional neural networks for American Sign Language recognition and worked as a Data Science Intern at Neftwerk. 
             </p>
             <p className='text-base py-4 leading-8 text-white'>
-            Additionally, I like soccer, pickleball and Formula 1. 
+            Additionally, I like  watching football, cricket, tennis and Formula 1. 
             </p>
           </div>
         </section>
 
-        <section id="Experience">
-          <h3 className='text-3xl mb-10 py-1 font-medium text-white'>Experience</h3>
-          <ol className="relative border-s ml-2 border-green-500">             
-              <li className="mb-10 ms-6">
-                  <span className="absolute flex items-center justify-center w-8 h-8 -start-4">
-                      <img src = "Fidelity.svg" alt="Fidelity Investments logo"/>
-                  </span>
-                  <h3 className="text-base py-4 leading-8 text-white">Neftwerk</h3>
-                  <h4 className="mb-1 font-medium text-white -base">Data Science Intern</h4>
-                  <time className="block mb-4 text-sm font-normal leading-none text-white -800">May 2024 – July 2024</time>
-                  <p className="text-sm mb-1 font-normal text-white -800">• Designed and sorted data from CSVs to Attio dashboards to improve client information accuracy and operational efficiency by 60%</p>
-              </li>     
-              <li className="mb-10 ms-6">
-                  <span className="absolute flex items-center justify-center w-6 h-6 -start-3">
-                      <img src = "Microsoft.svg" alt="Microsoft logo"/>
-                  </span>
-                  <h3 className="text-base py-4 leading-8 text-white">Microsoft</h3>
-                  <h4 className="mb-1 font-medium text-white -base">Data Science Intern</h4>
-                  <time className="block mb-4 text-sm font-normal leading-none text-white -800">Jan 2024 – Feb 2024</time>
-                  <p className="text-sm mb-1 font-normal text-white -800">• Extended Azure ML’s Responsible AI Toolbox & Interpret Text for LLMs like GPT-4 & Llama, aiding 200,000+ users in model evaluation.</p>
-                  <p className="text-sm mb-1 font-normal text-white -800">• Implemented LIME explainers, customizable benchmarking metrics, and error analysis modules in the comprehensive UI dashboard.</p>
-                  <p className="text-sm mb-1 font-normal text-white -800">• Developed 5 tutorial notebooks showcasing model analysis with HuggingFace (GPT-Neo, RoBERTa) and OpenAI API (GPT-4, 3.5, 3).</p>  
-              </li>
+        <section id="Experience">   
+        <h3 class="text-white font-black md:text-[60px] sm:text-[50px] xs:text-[40px] text-[30px]">Experience</h3>
+     <VerticalTimeline>
+  <VerticalTimelineElement
+    className="vertical-timeline-element--work"
+    contentStyle={{ background: '#415A77', color: '#fff'}}
+    contentArrowStyle={{ borderRight: '8px solid  rgb(255, 255, 255)' }}
+    date={<span style={{ margin: '10px' }}>March 2024 - April 2024</span>}
+    iconStyle={{ background: 'rgb(255, 255, 255)', color: '#fff' }}
+    icon={
+      <div className="flex justify-center items-center w-full h-full">
+        <img src='snapchat.png'
+        className="w-[80%] h-[80%] object-contain"
+        />
+      </div>
+    }
+    visible={true}
+  >
+   <div>
+      <h3 className="text-white text-[24px] font-bold">AR & VR Developer Extern</h3>
+      <p className="text-secondary text-[16px] font-semibold" style={{margin: 0}}>Snap Inc.</p>
+    </div>
 
-              <li className="mb-10 ms-6">
-                  <span className="absolute flex items-center justify-center w-9 h-9 -start-5">
-                      <img src = "UMass.svg" alt="Fidelity Investments logo"/>
-                  </span>
-                  <h3 className="text-base py-4 leading-8 text-white">University of Massachusetts Amherst</h3>
-                  <h4 className="mb-1 font-medium text-white -base">ML & NLP Research Intern</h4>
-                  <time className="block mb-4 text-sm font-normal leading-none text-white -800">May 2023 – Sep 2023</time>
-                  <p className="text-sm mb-1 font-normal text-white -800">• Analyzed multimodal transformer models: BLIP, GIT, CLIP, and custom vision language model (VLM) with BERT (LLM) encodings,
-  EfficientNet (CNN), and LSTMs with PyTorch (CUDA) to generate prompts of AI generated images, achieving a BLEU score of 68%.</p>
-                  <p className="text-sm mb-1 font-normal text-white -800">• Created training and validation datasets for R&D using Python & Selenium, web scraping 1000+ AI generated images and prompts.</p>
-              </li>     
+     <ul className="mt-5 list-disc ml-5 space-y-2">
 
-              <li className="mb-10 ms-6">
-                  <span className="absolute flex items-center justify-center w-7 h-7 -start-3.5">
-                      <img src = "Binds.svg" alt="Biologically Inspired Neural and Dynamical Systems Lab logo"/>
-                  </span>
-                  <h3 className="text-base py-4 leading-8 text-white">Biologically Inspired Neural and Dynamical Systems Lab</h3>
-                  <h4 className="mb-1 font-medium text-white -base">AI & RNN Research Intern</h4>
-                  <time className="block mb-4 text-sm font-normal leading-none text-white -800">Feb 2023 – Dec 2023</time>
-                  <p className="text-sm mb-1 font-normal text-white -800">• Built simulations in Julia to study the applications and dynamics of oscillatory neural networks; made computation 10x faster.</p>
-                  <p className="text-sm mb-1 font-normal text-white -800">• Designed algorithms to solve the ongoing challenge of recurrent neural network oversaturation; potentially applicable in robotics.</p>
-                  <p className="text-sm mb-1 font-normal text-white -800">• Enhanced data visualization with 1000+ raster plots and video heatmaps, integrating clustering algorithms for data segmentation.</p>  
+        <li className="text-white-100 text-[14px] l-1 tracking-wider">
+       Designed a soccer-themed AR lens incorporating Snap's Lens Studio and 3D modeling, certified by Snap Inc.’s Head of Entertainment.
+        </li>
+        <li className="text-white-100 text-[14px] l-1 tracking-wider">
+        Launched a Snapchat lens inspired by Reebok and soccer, compatible with iOS and Android, gathering views from 100+ countries.
+        </li>
+        <li className="text-white-100 text-[14px] l-1 tracking-wider">
+        Conducted data-driven market research in sports and technology using Tableau, and MySQL enhancing data visualization by 30%.
+        </li>
+ 
+ 
+    </ul> 
+           
+   
+  </VerticalTimelineElement>
+  <VerticalTimelineElement
+    className="vertical-timeline-element--work"
+    contentStyle={{ background: '#415A77', color: '#fff' }}
+    contentArrowStyle={{ borderRight: '7px solid  rgb(255, 255, 255)' }}
+    date="May 2024 - July 2024"
+    iconStyle={{ background: 'rgb(255, 255, 255)', color: '#fff' }}
+    icon={
+      <div className="flex justify-center items-center w-full h-full">
+        <img src='result.png'
+        className="w-[90%] h-[90%] object-contain"
+        />
+      </div>
+    }
+    visible={true}
+  >
+     <div>
+      <h3 className="text-white text-[24px] font-bold">Data Science Intern</h3>
+      <p className="text-secondary text-[16px] font-semibold" style={{margin: 0}}>Neftwerk</p>
+    </div>
 
-              </li>     
-              
-          </ol>
-        </section>
+     <ul className="mt-5 list-disc ml-5 space-y-2">
 
+        <li className="text-white-100 text-[14px] l-1 tracking-wider">
+        Designed and sorted data from CSVs to Attio dashboards to improve client information accuracy and operational efficiency by 60%.
+        </li>
+        <li className="text-white-100 text-[14px] l-1 tracking-wider">
+        Leveraged Attio’s REST API to implement filtering and pagination, optimizing data retrieval by 30% and enhancing user experience.
+        </li>
+        <li className="text-white-100 text-[14px] l-1 tracking-wider">
+        Structured app’s code and documentation on GitHub, contributing to increased project workflows and easier team collaboration.
+        </li>
+    </ul> 
+  </VerticalTimelineElement>
+  <VerticalTimelineElement
+    className="vertical-timeline-element--work"
+    contentStyle={{ background: '#415A77',color: '#fff' }}
+    contentArrowStyle={{ borderRight: '7px solid  rgb(255, 255, 255)' }}
+    date={<span style={{ margin: '10px' }}>Sep 2024 - present</span>}
+    iconStyle={{ background: 'rgb(255, 255, 255)', color: '#fff' }}
+    icon={
+      <div className="flex justify-center items-center w-full h-full">
+        <img src='lab.png'
+        className="w-[90%] h-[90%] object-contain"
+      />
+      </div>
+    }
+    visible={true}
+  >
+    
+    <div>
+      <h3 className="text-white text-[24px] font-bold">Personalizing LLM Research Fellow</h3>
+      <p className="text-secondary text-[16px] font-semibold" style={{margin: 0}}>Center for Intelligent Information Retrieval</p>
+    </div>
 
+     <ul className="mt-5 list-disc ml-5 space-y-2">
 
-        <section id="Projects">
-          <h3 className='text-3xl py-1 font-medium'>Projects</h3>
-      
-          <div>
+        <li className="text-white-100 text-[14px] l-1 tracking-wider">
+        TBD
+        </li>
+        </ul>
+    
+  </VerticalTimelineElement>
+  <VerticalTimelineElement
+    className="vertical-timeline-element--work"
+    contentStyle={{ background: '#415A77', color: '#fff' }}
+    contentArrowStyle={{ borderRight: '7px solid rgb(255, 255, 255)' }}
+    date="June 2024 - Aug 2024"
+    iconStyle={{ background: 'rgb(255, 255, 255)', color: '#fff' }}
+    icon={
+      <div className="flex justify-center items-center w-full h-full">
+        <img src='UMass.png'
+        className="w-[80%] h-[80%] object-contain"
+        />
+      </div>
+    }
+    visible={true}
+  >
+    
+    <div>
+      <h3 className="text-white text-[24px] font-bold">Undergraduate ML Researcher </h3>
+      <p className="text-secondary text-[16px] font-semibold" style={{margin: 0}}>University of Massachusetts Amherst</p>
+    </div>
 
-          <div className='group relative my-10'>
-              <div className='invisible group-hover:visible absolute -inset-0.5 bg-gradient-to-br  from-green-100 to-teal-500 rounded-lg blur-md opacity-75'></div>
-              <div className='relative bg-white text-center shadow-lg p-10 rounded-xl'>
-                <h3 className='text-2xl font-medium pt-5 pb-2 flex items-center justify-center'>Sign Language AI Translator<FaHandPeace className='fill-green-500 ml-2'/></h3>
-                <p>Sign Decoder is an AI system that translates sign language to text and speech in real time. The goal of our app is to be accessible and free, bridging the gap between signers and non-signers. Our app is going to have an intuitive and friction-less design, simply point the camera at the person signing to start translating! Our prototype was awarded &quot;Best use of an AI model&quot; by travelers.com at the Hack(h)er 413 Hackathon (2023).</p>
-                <button className="mt-3 mb-5 text-green-500 outline outline-2 outline-green-500 hover:bg-green-500 hover:text-white rounded px-4 py-1">
-                <a href="https://signdecoder.com" target="_blank" rel="noopener noreferrer">signdecoder.com</a>
-                </button>
-              </div>
+     <ul className="mt-5 list-disc ml-5 space-y-2">
+
+        <li className="text-white-100 text-[14px] l-1 tracking-wider">
+        Optimized a CNN for ASL recognition, achieving a 97% F1 score through data augmentation and additional convolutional layers.
+        </li>
+        <li className="text-white-100 text-[14px] l-1 tracking-wider">
+        Utilized ResNet pre-trained models to enhance accuracy to 98% and reduce overfitting, improving generalization on unseen data.
+        </li>
+        <li className="text-white-100 text-[14px] l-1 tracking-wider">
+        Enhanced model robustness in Keras with batch normalization, and the Image Data Generator for consistent validation performance.
+        </li>
+    </ul> 
+   
+  </VerticalTimelineElement>
+
+  </VerticalTimeline>
+  </section>
+ 
+         <section id="Projects">
+         <h3 class="text-white font-black md:text-[60px] sm:text-[50px] xs:text-[40px] text-[30px]">Projects</h3>
+         <div className="w-full flex">
+           <p className="mt-3 text-white text-[17px] max-w-3xl leading-[30px]">
+           Each Project has a link to my GitHub code. Feel free to look at the quick video demos or check out my code.
+          </p>
+           
+        </div>
+          <div className='flex flex-col lg:flex-row mt-20 justify-center'>
+         <div
+     className='bg-[#415A77] p-5 rounded-2xl 
+     sm:w-[400px] min-w-[350px]  w-full mb-4'>
+      <div className='relative w-full h-[240px]'>
+         <video className='w-full h-full object-cover
+          rounded-2xl' autoPlay loop muted>
+        <source src="Demo.mp4" type="video/mp4"/>
+    </video>
+
+        <div className='absolute inset-0 flex justify-end m-3 card-img_hover'>
+          <div
+            onClick={()=> window.open('https://github.com/SatyaShodhaka/perfectpitch', '_blank')}
+            className="black-gradient w-10 h-10 rounded-full flex justify-center
+            items-center cursor-pointer"
+            >
+              <img
+              src="github.png"
+              alt="github"
+              className="bg-black rounded-full flex items-center justify-center text-white"
+              />
           </div>
+        </div>
+      </div>
 
-          <div className='group relative my-10'>
-              <div className='invisible group-hover:visible absolute -inset-0.5 bg-gradient-to-br  from-green-100 to-teal-500 rounded-lg blur-md opacity-75'></div>
-              <div className='relative bg-white text-center shadow-lg p-10 rounded-xl'>
-                <h3 className='text-2xl font-medium pt-5 pb-2 flex items-center justify-center'>ShareSpace: Find Roommates<AiFillHome className='fill-green-500 ml-2'/></h3>
-                <p>I collaborated with a team of 10 to develop a full-stack web app that matches roommates based on their preferences, allowing matched users to chat and customize their profiles. The goal of this project was to create a centralized roommate finder for UMass students. I learned a lot while working on this project, especially the specifics of building and interacting with databases.</p>
-                <button className="mt-3 mb-5 text-green-500 outline outline-2 outline-green-500 hover:bg-green-500 hover:text-white rounded px-4 py-1">
-                  <a href="https://github.com/ShareSpaceUmass/ShareSpace.git" target="_blank" rel="noopener noreferrer">GitHub</a>
-                </button>
-              </div>
-            </div>
+      <div className='mt-5'>
+        <h3 className='text-white font-bold text-[24px]'>PerfectPitch</h3>
+        <p className='mt-2 text-gray-200  text-[14px]'>AI-powered platform designed to provide tailored feedback, script assistance, and a performance score for personalized interview preparation.</p>
+      </div>
+     </div>
 
-            <div className='group relative my-10'>
-              <div className='invisible group-hover:visible absolute -inset-0.5 bg-gradient-to-br  from-green-100 to-teal-500 rounded-lg blur-md opacity-75'></div>
-              <div className='relative bg-white text-center shadow-lg p-10 rounded-xl'>
-                <h3 className='text-2xl font-medium pt-5 pb-2 flex items-center justify-center'>eBay: ML & NER Competition<SiPython className='fill-green-500 ml-2'/></h3>
-                <p>We Developed a 94% accurate name entity recognition (NER) model using 10 million raw eBay listings in German; effectively classifying each word. To do this we analyzed and preprocessed the raw, non-english dataset with Pandas; streamlining feature extraction and performance. Ultimately we achieved our goal of enhancing the data quality and searchability of the eBay listings.</p>
-              </div>
-            </div>
+     <div
+     className='bg-[#415A77] p-5 rounded-2xl
+     sm:w-[400px] min-w-[350px] w-full lg:mr-8 lg:ml-8 mb-4'>
+      <div className='relative w-full h-[240px]'>
+      <video className='w-full h-full object-cover
+          rounded-2xl' autoPlay loop muted>
+        <source src="olympic.mp4" type="video/mp4"/>
+      </video>
 
-            <div className='group relative my-10'>
-              <div className='invisible group-hover:visible absolute -inset-0.5 bg-gradient-to-br  from-green-100 to-teal-500 rounded-lg blur-md opacity-75'></div>
-              <div className='relative bg-white text-center shadow-lg p-10 rounded-xl'>
-                <h3 className='text-2xl font-medium pt-5 pb-2 flex items-center justify-center'>AI Flappy Bird<FaEarlybirds className='fill-green-500 ml-2'/></h3>
-                <p>I made this Flappy Bird AI by first applying object-oriented programming to make the general mechanics of Flappy Bird with Python and PyGame. While developing the game, special attention was given to simplifying the simulation of physics and collisions. Then I implemented the NEAT (NeuroEvolution of Augmenting Topologies) genetic algorithm to create intelligent, evolving birds that can play the game autonomously. As a result, the AI birds were capable of playing the game indefinitely by the 11th generation.</p>
-                <button className="mt-3 mb-5 text-green-500 outline outline-2 outline-green-500 hover:bg-green-500 hover:text-white rounded px-4 py-1">
-                  <a href="https://github.com/mohsinposts/NEAT-Learning-Flappy-Bird-AI.git" target="_blank" rel="noopener noreferrer">GitHub</a>
-                </button>
-              </div>
-            </div>
+        <div className='absolute inset-0 flex justify-end m-3 card-img_hover'>
+          <div
+            onClick={()=> window.open('https://github.com/chaudharycoding/-Predictive-Analytics-for-Olympic-Medal-Counts-using-Machine-Learning-', '_blank')}
+            className="black-gradient w-10 h-10 rounded-full flex justify-center
+            items-center cursor-pointer"
+            >
+              <img
+              src="github.png"
+              alt="github"
+              className="bg-black rounded-full flex items-center justify-center text-white"
+              />
+  
+          </div>
+        </div>
+      </div>
 
-          </div>         
-        </section>
+      <div className='mt-5'>
+        <h3 className='text-white font-bold text-[24px]'>Olympic Medal Predictor</h3>
+        <p className='mt-2 text-gray-200  text-[14px]'>Predictive analytics project designed to forecast Olympic medal counts using historical data and machine learning models.</p>
+      </div>
+     </div>
+
+     <div
+     className='bg-[#415A77] p-5 rounded-2xl
+     sm:w-[400px] min-w-[350px] w-full mb-4 '>
+      <div className='relative w-full h-[240px]'>
+      <video className='w-full h-full object-cover
+          rounded-2xl' autoPlay loop muted>
+        <source src="leetbank.mp4" type="video/mp4"/>
+      </video>
+
+        <div className='absolute inset-0 flex justify-end m-3 card-img_hover'>
+          <div
+            onClick={()=> window.open('https://github.com/rahmanMian/LeetBank', '_blank')}
+            className="black-gradient w-10 h-10 rounded-full flex justify-center
+            items-center cursor-pointer"
+            >
+              <img
+              src="github.png"
+              alt="github"
+              className="bg-black rounded-full flex items-center justify-center text-white"
+              />
+  
+          </div>
+        </div>
+      </div>
+
+      <div className='mt-5'>
+        <h3 className='text-white font-bold text-[24px]'>LeetBank</h3>
+        <p className='mt-2 text-gray-200 text-[14px]'>Web-based platform that is designed to help you store, annotate and manage your LeetCode questions efficiently.</p>
+      </div>
+     </div>
+     </div>
+
+         </section>
         
         <section id="Contact">
         <hr className="mt-20 h-0.5 border-t-0 bg-gray-300 opacity-100" />
           <div className= 'py-10 text-5xl flex items-center justify-center align-items-center gap-16 text-gray-600'>
             <p className='text-base py-4 leading-8 text-white'>muhammadzaee@umass.edu</p>
-            <a href="https://github.com/chaudharycoding" target="_blank" rel="noopener noreferrer"><AiFillGithub className='hover:fill-green-500'/></a>
+            <a href="https://github.com/chaudharycoding" target="_blank" rel="noopener noreferrer"><AiFillGithub className='hover:fill-white -500'/></a>
             <a href="https://www.linkedin.com/in/zaeem-chaudhary/" target="_blank" rel="noopener noreferrer"><AiFillLinkedin className='hover:fill-white -500'/></a>
             
           </div>
