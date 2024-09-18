@@ -204,7 +204,7 @@ Over the summer, I worked on a research project that focused on optimizing convo
      className='bg-[#415A77] p-5 rounded-2xl 
      sm:w-[400px] min-w-[350px]  w-full mb-4'>
       <div className='relative w-full h-[240px]'>
-         <video className='w-full h-full object-cover
+         <video playsInline className='w-full h-full object-cover
           rounded-2xl' autoPlay loop muted>
         <source src="Demo.mp4" type="video/mp4"/>
     </video>
@@ -234,7 +234,7 @@ Over the summer, I worked on a research project that focused on optimizing convo
      className='bg-[#415A77] p-5 rounded-2xl
      sm:w-[400px] min-w-[350px] w-full lg:mr-8 lg:ml-8 mb-4'>
       <div className='relative w-full h-[240px]'>
-      <video className='w-full h-full object-cover
+      <video playsInline className='w-full h-full object-cover
           rounded-2xl' autoPlay loop muted>
         <source src="olympic.mp4" type="video/mp4"/>
       </video>
@@ -265,7 +265,7 @@ Over the summer, I worked on a research project that focused on optimizing convo
      className='bg-[#415A77] p-5 rounded-2xl
      sm:w-[400px] min-w-[350px] w-full mb-4 '>
       <div className='relative w-full h-[240px]'>
-      <video className='w-full h-full object-cover
+      <video playsInline className='w-full h-full object-cover
           rounded-2xl' autoPlay loop muted>
         <source src="leetbank.mp4" type="video/mp4"/>
       </video>
