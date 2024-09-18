@@ -8,6 +8,9 @@ import {SiTensorflow, SiPytorch, SiJulia, SiPython} from 'react-icons/si'
 import { VerticalTimelineElement, VerticalTimeline }  from 'react-vertical-timeline-component';
 import 'react-vertical-timeline-component/style.min.css';
 
+/* eslint-disable react/no-unescaped-entities */
+
+
 
 import Link from 'next/link';
 
