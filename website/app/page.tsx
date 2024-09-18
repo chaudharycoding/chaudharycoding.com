@@ -57,7 +57,7 @@ Over the summer, I worked on a research project that focused on optimizing convo
     iconStyle={{ background: 'rgb(255, 255, 255)', color: '#fff' }}
     icon={
       <div className="flex justify-center items-center w-full h-full">
-        <img src='snapchat.png'
+        <img src='snapchat.png' alt="psfdsa"
         className="w-[80%] h-[80%] object-contain"
         />
       </div>
@@ -94,7 +94,7 @@ Over the summer, I worked on a research project that focused on optimizing convo
     iconStyle={{ background: 'rgb(255, 255, 255)', color: '#fff' }}
     icon={
       <div className="flex justify-center items-center w-full h-full">
-        <img src='result.png'
+        <img src='result.png' alt="psfdsa"
         className="w-[90%] h-[90%] object-contain"
         />
       </div>
@@ -127,7 +127,7 @@ Over the summer, I worked on a research project that focused on optimizing convo
     iconStyle={{ background: 'rgb(255, 255, 255)', color: '#fff' }}
     icon={
       <div className="flex justify-center items-center w-full h-full">
-        <img src='lab.png'
+        <img src='lab.png' alt="psfdsa"
         className="w-[90%] h-[90%] object-contain"
       />
       </div>
@@ -152,12 +152,12 @@ Over the summer, I worked on a research project that focused on optimizing convo
     className="vertical-timeline-element--work"
     contentStyle={{ background: '#415A77', color: '#fff' }}
     contentArrowStyle={{ borderRight: '7px solid rgb(255, 255, 255)' }}
-    
+
     date="June 2024 - Aug 2024"
     iconStyle={{ background: 'rgb(255, 255, 255)', color: '#fff' }}
     icon={
       <div className="flex justify-center items-center w-full h-full">
-        <img src='UMass.png'
+        <img src='UMass.png' alt="psfdsa"
         className="w-[80%] h-[80%] object-contain"
         />
       </div>
