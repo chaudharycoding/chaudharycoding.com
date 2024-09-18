@@ -21,7 +21,7 @@ export default function Home() {
       <main className='bg-[#003049] px-10 md:px-20 lg:px-60'>
 
         <section>
-          <nav className='pt-10 pb-2 flex justify-between'>
+          <nav className='pt-10 pb-2 flex justify-between mr-[5px] min-w-[520px]'>
             <h1 className='text-white font-black md:text-[40px] sm:text-[30px] xs:text-[30px] text-[20px]'>Muhammad Zaeem Chaudhary</h1>
             <ul className='flex items-center'>
               <Link className=' ml-3 md:ml- text-white'  href="#Experience">Experience</Link>
