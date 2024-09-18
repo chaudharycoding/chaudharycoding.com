@@ -50,13 +50,13 @@ Over the summer, I worked on a research project that focused on optimizing convo
         </section>
 
         <section id="Experience">   
-        <h3 class="text-white font-black md:text-[60px] sm:text-[50px] xs:text-[40px] text-[30px]">Experience</h3>
+        <h3 className="text-white font-black md:text-[60px] sm:text-[50px] xs:text-[40px] text-[30px]">Experience</h3>
      <VerticalTimeline>
   <VerticalTimelineElement
     className="vertical-timeline-element--work"
     contentStyle={{ background: '#415A77', color: '#fff'}}
     contentArrowStyle={{ borderRight: '8px solid  rgb(255, 255, 255)' }}
-    date={<span style={{ margin: '10px' }}>March 2024 - April 2024</span>}
+    date='March 2024 - April 2024'
     iconStyle={{ background: 'rgb(255, 255, 255)', color: '#fff' }}
     icon={
       <div className="flex justify-center items-center w-full h-full">
@@ -93,7 +93,7 @@ Over the summer, I worked on a research project that focused on optimizing convo
     className="vertical-timeline-element--work"
     contentStyle={{ background: '#415A77', color: '#fff' }}
     contentArrowStyle={{ borderRight: '7px solid  rgb(255, 255, 255)' }}
-    date="May 2024 - July 2024"
+    date='May 2024 - July 2024'
     iconStyle={{ background: 'rgb(255, 255, 255)', color: '#fff' }}
     icon={
       <div className="flex justify-center items-center w-full h-full">
@@ -126,7 +126,7 @@ Over the summer, I worked on a research project that focused on optimizing convo
     className="vertical-timeline-element--work"
     contentStyle={{ background: '#415A77',color: '#fff' }}
     contentArrowStyle={{ borderRight: '7px solid  rgb(255, 255, 255)' }}
-    date={<span style={{ margin: '10px' }}>Sep 2024 - present</span>}
+    date='Sep 2024 - present'
     iconStyle={{ background: 'rgb(255, 255, 255)', color: '#fff' }}
     icon={
       <div className="flex justify-center items-center w-full h-full">
@@ -192,7 +192,7 @@ Over the summer, I worked on a research project that focused on optimizing convo
   </section>
  
          <section id="Projects">
-         <h3 class="text-white font-black md:text-[60px] sm:text-[50px] xs:text-[40px] text-[30px]">Projects</h3>
+         <h3 className="text-white font-black md:text-[60px] sm:text-[50px] xs:text-[40px] text-[30px]">Projects</h3>
          <div className="w-full flex">
            <p className="mt-3 text-white text-[17px] max-w-3xl leading-[30px]">
            Each Project has a link to my GitHub code. Feel free to look at the quick video demos or check out my code.
