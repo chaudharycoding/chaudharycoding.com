@@ -18,17 +18,17 @@ export default function Home() {
   return (
     
     <div>
-      <main className='bg-[#003049] px-10 md:px-20 lg:px-60'>
+      <main className='bg-[#003049] px-10 md:px-20 lg:px-30'>
 
         <section>
-          <nav className='pt-10 pb-2 flex justify-between mr-[5px] min-w-[520px]'>
+          <nav className='pt-10 pb-2  flex flex-wrap flex-col sm:flex-row justify-between'>
             <h1 className='text-white font-black md:text-[40px] sm:text-[30px] xs:text-[30px] text-[20px]'>Muhammad Zaeem Chaudhary</h1>
             <ul className='flex items-center'>
-              <Link className=' ml-3 md:ml- text-white'  href="#Experience">Experience</Link>
+              <Link className=' ml-3 md:ml-6 sm:ml-1 text-white'  href="#Experience">Experience</Link>
               <Link className=' ml-3 md:ml- text-white' href="#Projects">Projects</Link>
               <Link className=' ml-3 md:ml-5 text-white' href="#Contact">Contact</Link>
 
-              <button className="text-[#C0D6DF] outline outline-2 outline-white hover:bg-[#415A77] hover-text:  rounded px-4 py-1 ml-5 md:ml-8"> 
+              <button className="text-[#C0D6DF] outline outline-2 outline-white hover:bg-[#415A77] hover-text:  rounded px-4 py-1 ml-5 md:ml-8 sm:mt-0 sm:px-2 sm:py-0.5 sm:text-sm"> 
                 <a href="Muhammad Zaeem Chaudhary Resume .pdf" target="_blank">Resume </a>
               </button>
             </ul>
@@ -191,104 +191,118 @@ Over the summer, I worked on a research project that focused on optimizing convo
   </VerticalTimeline>
   </section>
  
-         <section id="Projects">
-         <h3 className="text-white font-black md:text-[60px] sm:text-[50px] xs:text-[40px] text-[30px]">Projects</h3>
-         <div className="w-full flex">
-           <p className="mt-3 text-white text-[17px] max-w-3xl leading-[30px]">
-           Each Project has a link to my GitHub code. Feel free to look at the quick video demos or check out my code.
-          </p>
-           
-        </div>
-          <div className='flex flex-col lg:flex-row mt-20 justify-center'>
-         <div
-     className='bg-[#415A77] p-5 rounded-2xl 
-     sm:w-[400px] min-w-[350px]  w-full mb-4'>
+  <section id="Projects">
+  <h3 className="text-white font-black md:text-[60px] sm:text-[50px] xs:text-[40px] text-[30px]">Projects</h3>
+  <div className="w-full flex">
+    <p className="mt-3 text-white text-[17px] max-w-3xl leading-[30px]">
+      Each Project has a link to my GitHub code. Feel free to look at the quick video demos or check out my code.
+    </p>
+  </div>
+
+  <div className='mt-10 flex flex-wrap'>
+    <div className='bg-[#415A77] p-5 rounded-2xl sm:w-[400px] min-w-[350px] w-full mr-6 mb-4'>
       <div className='relative w-full h-[240px]'>
-         <video playsInline className='w-full h-full object-cover
-          rounded-2xl' autoPlay loop muted>
-        <source src="Demo.mp4" type="video/mp4"/>
-    </video>
+        <video playsInline className='w-full h-full object-cover rounded-2xl' autoPlay loop muted>
+          <source src="Demo.mp4" type="video/mp4" />
+        </video>
 
         <div className='absolute inset-0 flex justify-end m-3 card-img_hover'>
           <div
-            onClick={()=> window.open('https://github.com/SatyaShodhaka/perfectpitch', '_blank')}
-            className="black-gradient w-10 h-10 rounded-full flex justify-center
-            items-center cursor-pointer"
-            >
-              <img
+            onClick={() => window.open('https://github.com/SatyaShodhaka/perfectpitch', '_blank')}
+            className="black-gradient w-10 h-10 rounded-full flex justify-center items-center cursor-pointer">
+            <img
               src="github.png"
               alt="github"
               className="bg-black rounded-full flex items-center justify-center text-white"
-              />
+            />
           </div>
         </div>
       </div>
 
       <div className='mt-5'>
         <h3 className='text-white font-bold text-[24px]'>PerfectPitch</h3>
-        <p className='mt-2 text-gray-200  text-[14px]'>AI-powered platform designed to provide tailored feedback, script assistance, and a performance score for personalized interview preparation.</p>
+        <p className='mt-2 text-gray-200 text-[14px]'>
+          AI-powered platform designed to provide tailored feedback, script assistance, and a performance score for personalized interview preparation.
+        </p>
       </div>
-     </div>
+    </div>
 
-     <div
-     className='bg-[#415A77] p-5 rounded-2xl
-     sm:w-[400px] min-w-[350px] w-full lg:mr-8 lg:ml-8 mb-4'>
+    <div className='bg-[#415A77] p-5 rounded-2xl sm:w-[400px] min-w-[350px] w-full mr-6 mb-4'>
       <div className='relative w-full h-[240px]'>
-      <video playsInline className='w-full h-full object-cover
-          rounded-2xl' autoPlay loop muted>
-        <source src="olympic.mp4" type="video/mp4"/>
-      </video>
+        <video playsInline className='w-full h-full object-cover rounded-2xl' autoPlay loop muted>
+          <source src="leetbank.mp4" type="video/mp4" />
+        </video>
 
         <div className='absolute inset-0 flex justify-end m-3 card-img_hover'>
           <div
-            onClick={()=> window.open('https://github.com/chaudharycoding/-Predictive-Analytics-for-Olympic-Medal-Counts-using-Machine-Learning-', '_blank')}
-            className="black-gradient w-10 h-10 rounded-full flex justify-center
-            items-center cursor-pointer"
-            >
-              <img
+            onClick={() => window.open('https://github.com/rahmanMian/LeetBank', '_blank')}
+            className="black-gradient w-10 h-10 rounded-full flex justify-center items-center cursor-pointer">
+            <img
               src="github.png"
               alt="github"
               className="bg-black rounded-full flex items-center justify-center text-white"
-              />
-  
-          </div>
-        </div>
-      </div>
-
-      <div className='mt-5'>
-        <h3 className='text-white font-bold text-[24px]'>Olympic Medal Predictor</h3>
-        <p className='mt-2 text-gray-200  text-[14px]'>Predictive analytics project designed to forecast Olympic medal counts using historical data and machine learning models.</p>
-      </div>
-     </div>
-
-     <div
-     className='bg-[#415A77] p-5 rounded-2xl
-     sm:w-[400px] min-w-[350px] w-full mb-4 '>
-      <div className='relative w-full h-[240px]'>
-      <video playsInline className='w-full h-full object-cover
-          rounded-2xl' autoPlay loop muted>
-        <source src="leetbank.mp4" type="video/mp4"/>
-      </video>
-
-        <div className='absolute inset-0 flex justify-end m-3 card-img_hover'>
-          <div
-            onClick={()=> window.open('https://github.com/rahmanMian/LeetBank', '_blank')}
-            className="black-gradient w-10 h-10 rounded-full flex justify-center
-            items-center cursor-pointer"
-            >
-              <img
-              src="github.png"
-              alt="github"
-              className="bg-black rounded-full flex items-center justify-center text-white"
-              />
-  
+            />
           </div>
         </div>
       </div>
 
       <div className='mt-5'>
         <h3 className='text-white font-bold text-[24px]'>LeetBank</h3>
-        <p className='mt-2 text-gray-200 text-[14px]'>Web-based platform that is designed to help you store, annotate and manage your LeetCode questions efficiently.</p>
+        <p className='mt-2 text-gray-200 text-[14px]'>
+          Web-based platform that is designed to help you store, annotate and manage your LeetCode questions efficiently.
+        </p>
+      </div>
+    </div>
+
+    <div className='bg-[#415A77] p-5 rounded-2xl sm:w-[400px] min-w-[350px] w-full mr-6 mb-4'>
+      <div className='relative w-full h-[240px]'>
+        <video playsInline className='w-full h-full object-cover rounded-2xl' autoPlay loop muted>
+          <source src="sonar.mp4" type="video/mp4" />
+        </video>
+
+        <div className='absolute inset-0 flex justify-end m-3 card-img_hover'>
+          <div
+            onClick={() => window.open('https://github.com/rahmanMian/LeetBank', '_blank')}
+            className="black-gradient w-10 h-10 rounded-full flex justify-center items-center cursor-pointer">
+            <img
+              src="github.png"
+              alt="github"
+              className="bg-black rounded-full flex items-center justify-center text-white"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div className='mt-5'>
+        <h3 className='text-white font-bold text-[24px]'>Sonar Data Classification</h3>
+        <p className='mt-2 text-gray-200 text-[14px]'>
+          Developed a sonar signal classification model to distinguish between "Rock" and "Mine" signals using XGBoost.
+        </p>
+      </div>
+    </div>
+
+    <div className='bg-[#415A77] p-5 rounded-2xl sm:w-[400px] min-w-[350px] w-full mr-6 mb-4'>
+      <div className='relative w-full h-[240px]'>
+        <video playsInline className='w-full h-full object-cover rounded-2xl' autoPlay loop muted>
+          <source src="olympic.mp4" type="video/mp4" />
+        </video>
+
+        <div className='absolute inset-0 flex justify-end m-3 card-img_hover'>
+          <div
+            onClick={() => window.open('https://github.com/chaudharycoding/-Predictive-Analytics-for-Olympic-Medal-Counts-using-Machine-Learning-', '_blank')}
+            className="black-gradient w-10 h-10 rounded-full flex justify-center items-center cursor-pointer">
+            <img
+              src="github.png"
+              alt="github"
+              className="bg-black rounded-full flex items-center justify-center text-white"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div className='mt-5'>
+        <h3 className='text-white font-bold text-[24px]'>Olympic Medal Predictor</h3>
+        <p className='mt-2 text-gray-200 text-[14px]'>Predictive analytics project designed to forecast Olympic medal counts using historical data and machine learning models.</p>
       </div>
      </div>
      </div>
@@ -315,3 +329,5 @@ Over the summer, I worked on a research project that focused on optimizing convo
    
   )
 }
+
+      
