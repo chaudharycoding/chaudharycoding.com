@@ -284,7 +284,7 @@ Over the summer, I worked on a research project that focused on optimizing convo
     <div className='bg-[#415A77] p-5 rounded-2xl sm:w-[400px] min-w-[350px] w-full mr-6 mb-4'>
       <div className='relative w-full h-[240px]'>
         <video playsInline className='w-full h-full object-cover rounded-2xl' autoPlay loop muted>
-          <source src="leetbank.mp4" type="video/mp4" />
+          <source src="pomopay.mp4" type="video/mp4" />
         </video>
 
         <div className='absolute inset-0 flex justify-end m-3 card-img_hover'>
