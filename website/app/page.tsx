@@ -257,6 +257,60 @@ Over the summer, I worked on a research project that focused on optimizing convo
     <div className='bg-[#415A77] p-5 rounded-2xl sm:w-[400px] min-w-[350px] w-full mr-6 mb-4'>
       <div className='relative w-full h-[240px]'>
         <video playsInline className='w-full h-full object-cover rounded-2xl' autoPlay loop muted>
+          <source src="Uber.mp4" type="video/mp4" />
+        </video>
+
+        <div className='absolute inset-0 flex justify-end m-3 card-img_hover'>
+          <div
+            onClick={() => window.open('https://github.com/chaudharycoding/Uber-Data-Engineering-Pipeline', '_blank')}
+            className="black-gradient w-10 h-10 rounded-full flex justify-center items-center cursor-pointer">
+            <img
+              src="github.png"
+              alt="github"
+              className="bg-black rounded-full flex items-center justify-center text-white"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div className='mt-5'>
+        <h3 className='text-white font-bold text-[24px]'>Uber Data Pipeline</h3>
+        <p className='mt-2 text-gray-200 text-[14px]'>
+        A scalable pipeline using Python, GCP, Mage.ai, and BigQuery to process NYC Uber trip data, automating ETL and delivering insights via Looker Studio.
+        </p>
+      </div>
+    </div>
+
+    <div className='bg-[#415A77] p-5 rounded-2xl sm:w-[400px] min-w-[350px] w-full mr-6 mb-4'>
+      <div className='relative w-full h-[240px]'>
+        <video playsInline className='w-full h-full object-cover rounded-2xl' autoPlay loop muted>
+          <source src="leetbank.mp4" type="video/mp4" />
+        </video>
+
+        <div className='absolute inset-0 flex justify-end m-3 card-img_hover'>
+          <div
+            onClick={() => window.open('https://github.com/rahmanMian/pomopay', '_blank')}
+            className="black-gradient w-10 h-10 rounded-full flex justify-center items-center cursor-pointer">
+            <img
+              src="github.png"
+              alt="github"
+              className="bg-black rounded-full flex items-center justify-center text-white"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div className='mt-5'>
+        <h3 className='text-white font-bold text-[24px]'>PomoPay</h3>
+        <p className='mt-2 text-gray-200 text-[14px]'>
+        A Pomodoro-based productivity app that sets weekly goals, links payments to accountability, and boosts focus with secure Stripe integration.
+        </p>
+      </div>
+    </div>
+
+    <div className='bg-[#415A77] p-5 rounded-2xl sm:w-[400px] min-w-[350px] w-full mr-6 mb-4'>
+      <div className='relative w-full h-[240px]'>
+        <video playsInline className='w-full h-full object-cover rounded-2xl' autoPlay loop muted>
           <source src="sonar.mp4" type="video/mp4" />
         </video>
 
