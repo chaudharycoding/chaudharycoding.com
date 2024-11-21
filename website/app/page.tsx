@@ -328,7 +328,7 @@ Over the summer, I worked on a research project that focused on optimizing convo
       </div>
 
       <div className='mt-5'>
-        <h3 className='text-white font-bold text-[24px]'>Sonar Data Classification</h3>
+        <h3 className='text-white font-bold text-[24px]'>Sonar ata Classification</h3>
         <p className='mt-2 text-gray-200 text-[14px]'>
           Developed a sonar signal classification model to distinguish between "Rock" and "Mine" signals using XGBoost.
         </p>
