@@ -204,6 +204,7 @@ Over the summer, I worked on a research project that focused on optimizing convo
       <div className='relative w-full h-[240px]'>
         <video playsInline className='w-full h-full object-cover rounded-2xl' autoPlay loop muted>
           <source src="Demo.mp4" type="video/mp4" />
+          <source src="Demo.webm" type="video/webm" />
         </video>
 
         <div className='absolute inset-0 flex justify-end m-3 card-img_hover'>
