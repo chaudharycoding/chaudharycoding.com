@@ -68,7 +68,7 @@ Over the summer, I worked on a research project that focused on optimizing convo
     visible={true}
   >
    <div>
-      <h3 className="text-white text-[24px] font-bold">AR & VR Developer Extern</h3>
+      <h3 className="text-white text-[24px] font-bold">Software Development Extern</h3>
       <p className="text-secondary text-[16px] font-semibold" style={{margin: 0}}>Snap Inc.</p>
     </div>
 
@@ -118,7 +118,7 @@ Over the summer, I worked on a research project that focused on optimizing convo
         Leveraged Attio’s REST API to implement filtering and pagination, optimizing data retrieval by 30% and enhancing user experience.
         </li>
         <li className="text-white-100 text-[14px] l-1 tracking-wider">
-        Structured app’s code and documentation on GitHub, contributing to increased project workflows and easier team collaboration.
+        Engineered Python automation for Excel-to-CSV pipeline, leveraging Git version control to optimize Attio dashboard data processing.
         </li>
     </ul> 
   </VerticalTimelineElement>
@@ -139,14 +139,14 @@ Over the summer, I worked on a research project that focused on optimizing convo
   >
     
     <div>
-      <h3 className="text-white text-[24px] font-bold">Personalizing LLM Research Fellow</h3>
+      <h3 className="text-white text-[24px] font-bold">AI Research Intern</h3>
       <p className="text-secondary text-[16px] font-semibold" style={{margin: 0}}>Center for Intelligent Information Retrieval</p>
     </div>
 
      <ul className="mt-5 list-disc ml-5 space-y-2">
 
         <li className="text-white-100 text-[14px] l-1 tracking-wider">
-        TBD
+        Building a benchmark for LLM personalization using crowdsourcing via MTurk and API-driven calls of models like GPT-4 and Llama.
         </li>
         </ul>
     
@@ -169,7 +169,7 @@ Over the summer, I worked on a research project that focused on optimizing convo
   >
     
     <div>
-      <h3 className="text-white text-[24px] font-bold">Undergraduate ML Researcher </h3>
+      <h3 className="text-white text-[24px] font-bold">ML Research Intern </h3>
       <p className="text-secondary text-[16px] font-semibold" style={{margin: 0}}>University of Massachusetts Amherst</p>
     </div>
 
