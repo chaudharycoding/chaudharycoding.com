@@ -2,11 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base{
+@layer base {
   html {
-    scroll-behavior: smooth!important;
+    scroll-padding-top: 1rem;
+    -webkit-tap-highlight-color: rgb(255 255 255 / 0.08);
   }
-  body{
-    min-width: 520px;
+
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
   }
 }
