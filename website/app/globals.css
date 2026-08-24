@@ -4,13 +4,93 @@
 
 @layer base {
   html {
+    color-scheme: dark;
     scroll-padding-top: 1rem;
     -webkit-tap-highlight-color: rgb(255 255 255 / 0.08);
+  }
+
+  ::selection {
+    background: rgba(255, 255, 255, 0.25);
+    color: #fff;
+  }
+
+  a,
+  button {
+    cursor: pointer;
+  }
+
+  /* Custom astronaut cursor (fine pointer only — class set by AstronautCursor) */
+  html.astronaut-cursor,
+  html.astronaut-cursor * {
+    cursor: none !important;
+  }
+
+  #Experience,
+  #Projects,
+  #Contact,
+  #About {
+    scroll-margin-top: 1.25rem;
   }
 
   @media (prefers-reduced-motion: no-preference) {
     html {
       scroll-behavior: smooth;
     }
+  }
+
+  /* Keep contact inputs dark (browser defaults + autofill paint them white) */
+  .contact-field {
+    background-color: #0a0a0a;
+    color: #fff;
+  }
+
+  .contact-field:-webkit-autofill,
+  .contact-field:-webkit-autofill:hover,
+  .contact-field:-webkit-autofill:focus {
+    -webkit-text-fill-color: #fff;
+    caret-color: #fff;
+    box-shadow: 0 0 0 1000px #0a0a0a inset;
+    transition: background-color 99999s ease-in-out 0s;
+  }
+}
+
+/* Vertical timeline on the starfield */
+.vertical-timeline::before {
+  background: rgba(255, 255, 255, 0.28) !important;
+}
+
+.vertical-timeline-element-icon {
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.35), 0 4px 16px rgba(0, 0, 0, 0.45) !important;
+}
+
+.vertical-timeline-element-date {
+  color: rgba(255, 255, 255, 0.72) !important;
+  opacity: 1 !important;
+}
+
+@media only screen and (min-width: 1170px) {
+  .vertical-timeline-element-date {
+    color: rgba(255, 255, 255, 0.72) !important;
+  }
+}
+
+/* Hero scroll cue — orbit bead falls inside the ring */
+@keyframes hero-scroll-bead {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  70% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(1.65rem);
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .hero-scroll-bead {
+    animation: hero-scroll-bead 1.7s cubic-bezier(0.45, 0, 0.55, 1) infinite;
   }
 }

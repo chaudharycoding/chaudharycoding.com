@@ -1,0 +1,26 @@
+# OS
+.DS_Store
+**/.DS_Store
+Thumbs.db
+
+# Editor / local tooling (may contain API keys)
+.cursor/
+
+# Environment & secrets
+.env
+.env.*
+!.env.example
+!**/.env.example
+**/.env
+**/.env.*
+**/.env.local
+**/.env.*.local
+
+# Keys & credentials
+*.pem
+*.key
+*.p12
+*.pfx
+**/secrets/
+**/credentials.json
+**/service-account*.json

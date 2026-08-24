@@ -1,8 +1,20 @@
 import './globals.css'
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+import { Archivo, Space_Grotesk } from 'next/font/google'
 
-const inter = Inter({ subsets: ['latin'] })
+import { AstronautCursor } from './components/AstronautCursor'
+
+const archivo = Archivo({
+  subsets: ['latin'],
+  variable: '--font-body',
+  display: 'swap',
+})
+
+const spaceGrotesk = Space_Grotesk({
+  subsets: ['latin'],
+  variable: '--font-display',
+  display: 'swap',
+})
 
 const siteDescription =
   'Discover computer science and machine learning projects by Zaeem Chaudhary.'
@@ -44,10 +56,15 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
-      <body
-        className={`${inter.className} overflow-x-hidden bg-[#003049] antialiased`}
-      >
+    <html lang="en" className={`${archivo.variable} ${spaceGrotesk.variable}`}>
+      <body className="overflow-x-hidden bg-black font-sans antialiased text-white">
+        <a
+          href="#Experience"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-lg focus:bg-white focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-black"
+        >
+          Skip to content
+        </a>
+        <AstronautCursor />
         {children}
       </body>
     </html>

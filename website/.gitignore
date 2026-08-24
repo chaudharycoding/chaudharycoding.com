@@ -17,15 +17,29 @@
 
 # misc
 .DS_Store
-*.pem
+Thumbs.db
 
 # debug
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# local env files
+# environment & secrets (never commit real keys)
+.env
+.env.*
+!.env.example
+.env.local
 .env*.local
+*.pem
+*.key
+*.p12
+*.pfx
+secrets/
+credentials.json
+service-account*.json
+
+# editor / local tooling
+.cursor/
 
 # vercel
 .vercel

@@ -4,11 +4,10 @@ import Link from 'next/link'
 import { useEffect, useId, useState } from 'react'
 
 const navLinkClass =
-  'inline-flex min-h-[44px] items-center rounded px-3 py-2 text-white transition-colors duration-200 hover:text-white/90 active:opacity-75 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white'
+  'inline-flex min-h-[44px] cursor-pointer items-center rounded px-3 py-2 text-white/90 transition-colors duration-200 hover:text-white active:opacity-75 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white'
 
-/** Rounded rectangle, circular corners — calm hover: lift + border + fill */
 const resumeClass =
-  'inline-flex min-h-[44px] items-center justify-center rounded-2xl border-2 border-white/40 bg-transparent px-6 py-2.5 text-sm font-semibold tracking-wide text-white transition-all duration-300 ease-out hover:border-white hover:bg-[#415A77] hover:shadow-[0_6px_20px_-4px_rgba(0,0,0,0.45)] motion-safe:hover:-translate-y-px active:translate-y-0 active:bg-[#355066] active:shadow-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white'
+  'inline-flex min-h-[44px] cursor-pointer items-center justify-center rounded-2xl border-2 border-white/40 bg-white/5 px-6 py-2.5 text-sm font-semibold tracking-wide text-white transition-all duration-200 ease-out hover:border-orbit hover:bg-orbit hover:text-black motion-safe:hover:-translate-y-px active:translate-y-0 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orbit'
 
 function ResumeLink({
   className = '',
@@ -106,13 +105,13 @@ export function HeaderNav({ title }: { title: string }) {
         aria-label="Main navigation"
         className="flex flex-nowrap items-center justify-between gap-3 pb-2 md:gap-4"
       >
-        <h1 className="min-w-0 flex-1 pr-1 leading-tight text-[20px] font-black text-white xs:text-[30px] sm:text-[30px] md:text-[40px]">
+        <h1 className="min-w-0 flex-1 pr-1 font-display text-[20px] font-semibold leading-tight tracking-tight text-white xs:text-[30px] sm:text-[30px] md:text-[40px]">
           {title}
         </h1>
 
         <button
           type="button"
-          className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded text-white transition-opacity duration-200 hover:opacity-90 active:opacity-75 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white md:hidden"
+          className="inline-flex h-11 w-11 shrink-0 cursor-pointer items-center justify-center rounded text-white transition-opacity duration-200 hover:opacity-90 active:opacity-75 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white md:hidden"
           aria-expanded={open}
           aria-controls={menuId}
           onClick={() => setOpen((v) => !v)}
@@ -149,7 +148,7 @@ export function HeaderNav({ title }: { title: string }) {
           role="dialog"
           aria-modal="true"
           aria-label="Site menu"
-          className="fixed inset-0 z-50 flex flex-col bg-[#003049] pt-[max(0.75rem,env(safe-area-inset-top))] md:hidden"
+          className="fixed inset-0 z-50 flex flex-col bg-black pt-[max(0.75rem,env(safe-area-inset-top))] md:hidden"
         >
           <div className="flex items-center justify-between border-b border-white/20 pb-4 pl-[max(1rem,env(safe-area-inset-left))] pr-[max(1rem,env(safe-area-inset-right))]">
             <span className="text-lg font-semibold text-white">Menu</span>

@@ -76,7 +76,7 @@ export function ProjectVideo({ src }: ProjectVideoProps) {
         </video>
       ) : (
         <div
-          className="h-full w-full rounded-2xl bg-[#2d3f52]"
+          className="h-full w-full rounded-2xl bg-slate-100"
           aria-hidden
         />
       )}
