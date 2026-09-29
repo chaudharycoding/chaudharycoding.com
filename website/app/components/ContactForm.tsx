@@ -64,9 +64,12 @@ export function ContactForm() {
         templateId,
         {
           from_name: fromName,
+          name: fromName,
           from_email: fromEmail,
-          message,
+          email: fromEmail,
           reply_to: fromEmail,
+          // Included in {{message}} so the address shows even if the template omits {{from_email}}.
+          message: `From: ${fromName} <${fromEmail}>\n\n${message}`,
         },
         { publicKey }
       )
