@@ -23,11 +23,10 @@ export function OrbitalPortfolioHero() {
         aria-hidden
       />
 
-      <div className="relative z-10 flex min-h-screen flex-col px-6 pb-8 pt-[max(1.5rem,env(safe-area-inset-top))] sm:px-10 md:px-12 lg:px-20">
+      <div className="relative z-10 flex min-h-screen flex-col px-6 pb-8 pt-[max(0.5rem,env(safe-area-inset-top))] sm:px-10 md:px-12 lg:px-20">
         <HeaderNav title="Muhammad Zaeem Chaudhary" />
-        <hr className="mt-2 h-0.5 border-t-0 bg-white/25" />
 
-        <div className="mt-8 flex flex-1 flex-col justify-center py-6">
+        <div className="mt-6 flex flex-1 flex-col justify-center py-6 sm:mt-8">
           <div className="max-w-xl">
             <h1 className="font-display text-[2.5rem] font-medium leading-[1.05] tracking-[-0.03em] text-white sm:text-5xl lg:text-[3.75rem]">
               Hey, I am Zaeem !

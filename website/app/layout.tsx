@@ -2,8 +2,6 @@ import './globals.css'
 import type { Metadata } from 'next'
 import { Archivo, Space_Grotesk } from 'next/font/google'
 
-import { AstronautCursor } from './components/AstronautCursor'
-
 const archivo = Archivo({
   subsets: ['latin'],
   variable: '--font-body',
@@ -64,7 +62,6 @@ export default function RootLayout({
         >
           Skip to content
         </a>
-        <AstronautCursor />
         {children}
       </body>
     </html>

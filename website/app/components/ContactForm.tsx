@@ -6,6 +6,27 @@ import { FormEvent, useState } from 'react'
 const field =
   'contact-field mt-2 w-full rounded-xl border border-white/15 bg-[#0a0a0a] px-5 py-4 text-base text-white outline-none transition-[border-color,box-shadow] placeholder:text-white/35 focus-visible:border-white focus-visible:ring-2 focus-visible:ring-white/30'
 
+function errorMessage(err: unknown) {
+  if (err && typeof err === 'object') {
+    const text = 'text' in err ? String((err as { text?: string }).text ?? '') : ''
+    const status = 'status' in err ? Number((err as { status?: number }).status) : 0
+    if (status === 429 || /rate|limit|too many/i.test(text)) {
+      return 'Too many messages — please wait a minute and try again.'
+    }
+    if (/public key|invalid/i.test(text) || status === 400) {
+      return 'Contact form is misconfigured. Please email me directly.'
+    }
+    if (/non-browser|disabled|origin|unauthorized|403/i.test(text) || status === 403) {
+      return 'Email service blocked this request. Check EmailJS domain allowlist / security settings.'
+    }
+    if (text) return `Send failed (${status || 'error'}): ${text}`
+  }
+  if (err instanceof Error && err.message) {
+    return `Send failed: ${err.message}`
+  }
+  return 'Something went wrong. Please try again or email me directly.'
+}
+
 export function ContactForm() {
   const [loading, setLoading] = useState(false)
   const [msg, setMsg] = useState('')
@@ -16,32 +37,46 @@ export function ContactForm() {
     setMsg('')
     setOk(false)
 
+    // Capture before any await — React nulls currentTarget after the event yields
+    const form = e.currentTarget
+
     const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID
     const templateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID
     const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY
     if (!serviceId || !templateId || !publicKey) {
-      setMsg('Something went wrong. Please try again or email me directly.')
+      setMsg('Contact form is not configured yet. Please email me directly.')
       return
     }
 
-    const data = new FormData(e.currentTarget)
+    const data = new FormData(form)
+    const fromName = String(data.get('name') ?? '').trim()
+    const fromEmail = String(data.get('email') ?? '').trim()
+    const message = String(data.get('message') ?? '').trim()
+    if (!fromName || !fromEmail || !message) {
+      setMsg('Please fill in all fields.')
+      return
+    }
+
     setLoading(true)
     try {
       await emailjs.send(
         serviceId,
         templateId,
         {
-          from_name: String(data.get('name') ?? ''),
-          from_email: String(data.get('email') ?? ''),
-          message: String(data.get('message') ?? ''),
+          from_name: fromName,
+          from_email: fromEmail,
+          message,
+          reply_to: fromEmail,
         },
-        publicKey
+        { publicKey }
       )
-      e.currentTarget.reset()
+      form.reset()
       setOk(true)
       setMsg("Thanks! I'll get back to you as soon as possible.")
-    } catch {
-      setMsg('Something went wrong. Please try again or email me directly.')
+    } catch (err) {
+      console.error('[ContactForm] EmailJS error:', err)
+      setOk(false)
+      setMsg(errorMessage(err))
     } finally {
       setLoading(false)
     }
@@ -50,6 +85,7 @@ export function ContactForm() {
   return (
     <form
       onSubmit={onSubmit}
+      noValidate={false}
       className="mt-10 flex max-w-3xl flex-col gap-6 rounded-3xl border border-white/10 bg-black/50 p-8 shadow-[0_24px_60px_-24px_rgba(0,0,0,0.75)] backdrop-blur-md sm:p-10 md:p-12"
     >
       <div className="grid gap-6 sm:grid-cols-2">
@@ -74,7 +110,10 @@ export function ContactForm() {
         {loading ? 'Sending...' : 'Send message'}
       </button>
       {msg ? (
-        <p className={`text-base ${ok ? 'text-white/80' : 'text-white/60'}`} role={ok ? 'status' : 'alert'}>
+        <p
+          className={`text-base ${ok ? 'text-orbit' : 'text-white/70'}`}
+          role={ok ? 'status' : 'alert'}
+        >
           {msg}
         </p>
       ) : null}

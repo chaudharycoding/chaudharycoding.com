@@ -3,11 +3,17 @@
 import Link from 'next/link'
 import { useEffect, useId, useState } from 'react'
 
-const navLinkClass =
-  'inline-flex min-h-[44px] cursor-pointer items-center rounded px-3 py-2 text-white/90 transition-colors duration-200 hover:text-white active:opacity-75 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white'
+const SECTIONS = [
+  { id: 'Experience', label: 'Experience' },
+  { id: 'Projects', label: 'Projects' },
+  { id: 'Contact', label: 'Contact' },
+] as const
+
+const navLinkBase =
+  'relative inline-flex min-h-[44px] cursor-pointer items-center px-1 py-2 text-[15px] tracking-wide text-white/70 transition-colors duration-200 hover:text-white active:opacity-80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orbit'
 
 const resumeClass =
-  'inline-flex min-h-[44px] cursor-pointer items-center justify-center rounded-2xl border-2 border-white/40 bg-white/5 px-6 py-2.5 text-sm font-semibold tracking-wide text-white transition-all duration-200 ease-out hover:border-orbit hover:bg-orbit hover:text-black motion-safe:hover:-translate-y-px active:translate-y-0 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orbit'
+  'inline-flex min-h-[44px] cursor-pointer items-center justify-center rounded-full bg-orbit px-5 py-2.5 text-sm font-semibold tracking-wide text-black transition-[background-color,transform] duration-200 ease-out hover:bg-[#ffb84d] motion-safe:hover:-translate-y-px active:translate-y-0 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orbit'
 
 function ResumeLink({
   className = '',
@@ -39,7 +45,6 @@ function HamburgerGlyph({ className }: { className?: string }) {
       viewBox="0 0 24 18"
       aria-hidden
     >
-      {/* Top: short bar, right-aligned (~58%), pill ends */}
       <rect x="10" y="0" width="14" height="2" rx="1" fill="currentColor" />
       <rect x="0" y="8" width="24" height="2" rx="1" fill="currentColor" />
       <rect x="0" y="16" width="24" height="2" rx="1" fill="currentColor" />
@@ -68,6 +73,8 @@ function CloseIcon({ className }: { className?: string }) {
 
 export function HeaderNav({ title }: { title: string }) {
   const [open, setOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
+  const [active, setActive] = useState<string>('')
   const menuId = useId()
 
   useEffect(() => {
@@ -97,50 +104,92 @@ export function HeaderNav({ title }: { title: string }) {
     return () => mq.removeEventListener('change', onResize)
   }, [])
 
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 24)
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
+
+  useEffect(() => {
+    const ids = SECTIONS.map((s) => s.id)
+    const nodes = ids
+      .map((id) => document.getElementById(id))
+      .filter((el): el is HTMLElement => Boolean(el))
+    if (!nodes.length) return
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((e) => e.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)
+        if (visible[0]?.target.id) setActive(visible[0].target.id)
+      },
+      { rootMargin: '-28% 0px -55% 0px', threshold: [0, 0.25, 0.5, 1] }
+    )
+
+    nodes.forEach((n) => observer.observe(n))
+    return () => observer.disconnect()
+  }, [])
+
   const close = () => setOpen(false)
+
+  const linkClass = (id: string) =>
+    `${navLinkBase} ${
+      active === id
+        ? 'text-white after:absolute after:inset-x-1 after:bottom-1 after:h-0.5 after:rounded-full after:bg-orbit'
+        : 'after:absolute after:inset-x-1 after:bottom-1 after:h-0.5 after:origin-left after:scale-x-0 after:rounded-full after:bg-orbit after:transition-transform after:duration-200 hover:after:scale-x-100'
+    }`
 
   return (
     <>
-      <nav
-        aria-label="Main navigation"
-        className="flex flex-nowrap items-center justify-between gap-3 pb-2 md:gap-4"
+      <header
+        className={`sticky top-0 z-40 -mx-6 px-6 transition-[background-color,backdrop-filter,border-color] duration-300 sm:-mx-10 sm:px-10 md:-mx-12 md:px-12 lg:-mx-20 lg:px-20 ${
+          scrolled
+            ? 'border-b border-white/15 bg-black/70 backdrop-blur-md'
+            : 'border-b border-transparent bg-transparent'
+        }`}
       >
-        <h1 className="min-w-0 flex-1 pr-1 font-display text-[20px] font-semibold leading-tight tracking-tight text-white xs:text-[30px] sm:text-[30px] md:text-[40px]">
-          {title}
-        </h1>
-
-        <button
-          type="button"
-          className="inline-flex h-11 w-11 shrink-0 cursor-pointer items-center justify-center rounded text-white transition-opacity duration-200 hover:opacity-90 active:opacity-75 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white md:hidden"
-          aria-expanded={open}
-          aria-controls={menuId}
-          onClick={() => setOpen((v) => !v)}
+        <nav
+          aria-label="Main navigation"
+          className="flex flex-nowrap items-center justify-between gap-3 py-3 md:gap-6 md:py-4"
         >
-          <span className="sr-only">{open ? 'Close menu' : 'Open menu'}</span>
-          <HamburgerGlyph className="text-white" />
-        </button>
+          <a
+            href="#About"
+            className="min-w-0 flex-1 pr-1 font-display text-[18px] font-semibold leading-tight tracking-tight text-white transition-colors duration-200 hover:text-orbit focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orbit xs:text-[22px] sm:text-[26px] md:text-[32px]"
+          >
+            {title}
+          </a>
 
-        <ul className="m-0 hidden list-none flex-nowrap items-center gap-x-5 p-0 md:flex">
-          <li>
-            <Link className={navLinkClass} href="#Experience">
-              Experience
-            </Link>
-          </li>
-          <li>
-            <Link className={navLinkClass} href="#Projects">
-              Projects
-            </Link>
-          </li>
-          <li>
-            <Link className={navLinkClass} href="#Contact">
-              Contact
-            </Link>
-          </li>
-          <li>
-            <ResumeLink className={resumeClass} />
-          </li>
-        </ul>
-      </nav>
+          <button
+            type="button"
+            className="inline-flex h-11 w-11 shrink-0 cursor-pointer items-center justify-center rounded-lg text-white transition-colors duration-200 hover:bg-white/10 hover:text-orbit active:opacity-75 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orbit md:hidden"
+            aria-expanded={open}
+            aria-controls={menuId}
+            onClick={() => setOpen((v) => !v)}
+          >
+            <span className="sr-only">{open ? 'Close menu' : 'Open menu'}</span>
+            <HamburgerGlyph className="text-current" />
+          </button>
+
+          <ul className="m-0 hidden list-none flex-nowrap items-center gap-x-7 p-0 md:flex">
+            {SECTIONS.map(({ id, label }) => (
+              <li key={id}>
+                <Link
+                  className={linkClass(id)}
+                  href={`#${id}`}
+                  aria-current={active === id ? 'true' : undefined}
+                >
+                  {label}
+                </Link>
+              </li>
+            ))}
+            <li className="pl-1">
+              <ResumeLink className={resumeClass} />
+            </li>
+          </ul>
+        </nav>
+      </header>
 
       {open ? (
         <div
@@ -148,13 +197,13 @@ export function HeaderNav({ title }: { title: string }) {
           role="dialog"
           aria-modal="true"
           aria-label="Site menu"
-          className="fixed inset-0 z-50 flex flex-col bg-black pt-[max(0.75rem,env(safe-area-inset-top))] md:hidden"
+          className="fixed inset-0 z-50 flex flex-col bg-black/95 backdrop-blur-sm pt-[max(0.75rem,env(safe-area-inset-top))] md:hidden"
         >
-          <div className="flex items-center justify-between border-b border-white/20 pb-4 pl-[max(1rem,env(safe-area-inset-left))] pr-[max(1rem,env(safe-area-inset-right))]">
-            <span className="text-lg font-semibold text-white">Menu</span>
+          <div className="flex items-center justify-between border-b border-white/15 pb-4 pl-[max(1rem,env(safe-area-inset-left))] pr-[max(1rem,env(safe-area-inset-right))]">
+            <span className="font-display text-lg font-semibold text-white">Menu</span>
             <button
               type="button"
-              className="inline-flex min-h-[44px] min-w-[44px] items-center justify-center rounded text-white transition-opacity hover:opacity-90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+              className="inline-flex min-h-[44px] min-w-[44px] items-center justify-center rounded-lg text-white transition-colors hover:bg-white/10 hover:text-orbit focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orbit"
               onClick={close}
               aria-label="Close menu"
             >
@@ -163,34 +212,21 @@ export function HeaderNav({ title }: { title: string }) {
           </div>
 
           <ul className="flex flex-1 flex-col gap-1 py-6 pl-[max(1rem,env(safe-area-inset-left))] pr-[max(1rem,env(safe-area-inset-right))]">
-            <li>
-              <Link
-                className={`${navLinkClass} w-full justify-center py-4 text-lg`}
-                href="#Experience"
-                onClick={close}
-              >
-                Experience
-              </Link>
-            </li>
-            <li>
-              <Link
-                className={`${navLinkClass} w-full justify-center py-4 text-lg`}
-                href="#Projects"
-                onClick={close}
-              >
-                Projects
-              </Link>
-            </li>
-            <li>
-              <Link
-                className={`${navLinkClass} w-full justify-center py-4 text-lg`}
-                href="#Contact"
-                onClick={close}
-              >
-                Contact
-              </Link>
-            </li>
-            <li className="pt-4">
+            {SECTIONS.map(({ id, label }) => (
+              <li key={id}>
+                <Link
+                  className={`${navLinkBase} w-full justify-center py-4 text-lg ${
+                    active === id ? 'text-orbit' : 'text-white'
+                  }`}
+                  href={`#${id}`}
+                  onClick={close}
+                  aria-current={active === id ? 'true' : undefined}
+                >
+                  {label}
+                </Link>
+              </li>
+            ))}
+            <li className="pt-6">
               <ResumeLink
                 className={`${resumeClass} w-full py-4 text-base`}
                 onClick={close}

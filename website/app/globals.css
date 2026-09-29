@@ -19,17 +19,11 @@
     cursor: pointer;
   }
 
-  /* Custom astronaut cursor (fine pointer only — class set by AstronautCursor) */
-  html.astronaut-cursor,
-  html.astronaut-cursor * {
-    cursor: none !important;
-  }
-
   #Experience,
   #Projects,
   #Contact,
   #About {
-    scroll-margin-top: 1.25rem;
+    scroll-margin-top: 5.5rem;
   }
 
   @media (prefers-reduced-motion: no-preference) {
