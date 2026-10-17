@@ -1,68 +1,48 @@
 'use client'
 
 import { useEffect, useRef, useState, useSyncExternalStore } from 'react'
-import { useInView } from 'react-intersection-observer'
 
-type ProjectVideoProps = {
-  /** Path under `/public`, e.g. `/leetdemo.mp4` */
-  src: string
-}
-
-function subscribeReducedMotion(callback: () => void) {
-  const mq = window.matchMedia('(prefers-reduced-motion: reduce)')
-  mq.addEventListener('change', callback)
-  return () => mq.removeEventListener('change', callback)
-}
-
-function getReducedMotionSnapshot() {
-  return window.matchMedia('(prefers-reduced-motion: reduce)').matches
-}
-
-function getServerReducedMotionSnapshot() {
-  return false
-}
-
-function usePrefersReducedMotion() {
-  return useSyncExternalStore(
-    subscribeReducedMotion,
-    getReducedMotionSnapshot,
-    getServerReducedMotionSnapshot
-  )
-}
-
-/**
- * Loads and plays the clip only when near the viewport; pauses when scrolled away.
- * Keeps the element mounted after first load so the file is not re-fetched on scroll.
- * Respects prefers-reduced-motion: no video load or autoplay when reduced.
- */
-export function ProjectVideo({ src }: ProjectVideoProps) {
+export function ProjectVideo({ src }: { src: string }) {
   const videoRef = useRef<HTMLVideoElement>(null)
-  const [shouldLoad, setShouldLoad] = useState(false)
-  const prefersReducedMotion = usePrefersReducedMotion()
-  const { ref: containerRef, inView } = useInView({
-    rootMargin: '150px 0px',
-    threshold: 0,
-  })
-
-  const loadVideo = shouldLoad && !prefersReducedMotion
+  const containerRef = useRef<HTMLDivElement>(null)
+  const [inView, setInView] = useState(false)
+  const [loaded, setLoaded] = useState(false)
+  const reduced = useSyncExternalStore(
+    (onChange) => {
+      const mq = window.matchMedia('(prefers-reduced-motion: reduce)')
+      mq.addEventListener('change', onChange)
+      return () => mq.removeEventListener('change', onChange)
+    },
+    () => window.matchMedia('(prefers-reduced-motion: reduce)').matches,
+    () => false
+  )
 
   useEffect(() => {
-    if (inView) setShouldLoad(true)
-  }, [inView])
+    const el = containerRef.current
+    if (!el) return
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) setLoaded(true)
+        setInView(entry.isIntersecting)
+      },
+      { rootMargin: '150px 0px', threshold: 0 }
+    )
+    io.observe(el)
+    return () => io.disconnect()
+  }, [])
+
+  const show = loaded && !reduced
 
   useEffect(() => {
     const el = videoRef.current
-    if (!el || !loadVideo) return
-    if (inView) {
-      void el.play().catch(() => {})
-    } else {
-      el.pause()
-    }
-  }, [inView, loadVideo])
+    if (!el || !show) return
+    if (inView) void el.play().catch(() => {})
+    else el.pause()
+  }, [inView, show])
 
   return (
     <div ref={containerRef} className="relative h-full w-full">
-      {loadVideo ? (
+      {show ? (
         <video
           ref={videoRef}
           playsInline
@@ -75,10 +55,7 @@ export function ProjectVideo({ src }: ProjectVideoProps) {
           <source src={src} type="video/mp4" />
         </video>
       ) : (
-        <div
-          className="h-full w-full rounded-2xl bg-slate-100"
-          aria-hidden
-        />
+        <div className="h-full w-full rounded-2xl bg-white/[0.06]" aria-hidden />
       )}
     </div>
   )

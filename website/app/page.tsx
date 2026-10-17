@@ -59,16 +59,7 @@ export default function Home() {
   return (
     <main className="relative min-h-screen bg-black text-white">
       <div className="pointer-events-none fixed inset-0 z-0" aria-hidden>
-        <OrbitalHeroSection
-          className="h-full w-full"
-          interactive={false}
-          scrim="none"
-          focus={[0.78, 0.42]}
-          lead={0.1}
-          viewRadius={3.2}
-          glow={0.9}
-          starCount={1400}
-        />
+        <OrbitalHeroSection />
       </div>
 
       <div className="relative z-10">

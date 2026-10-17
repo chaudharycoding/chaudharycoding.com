@@ -1,80 +1,21 @@
 "use client";
 
-import * as React from "react";
 import { useEffect, useRef } from "react";
 
-/* -------------------------------------------------------------------------- */
-/*  What this draws                                                           */
-/*                                                                            */
-/*  The Sun does not sit still. Relative to the stars around it, it moves at   */
-/*  19.4 km/s toward the solar apex in Hercules. The planets keep running      */
-/*  their Kepler ellipses around it, so the path each planet actually cuts     */
-/*  through space is an ellipse plus a straight drift: a helix.                */
-/*                                                                            */
-/*  The camera travels with the Sun. That is why the Sun stays put, the        */
-/*  background stars slide past with real depth parallax, and every planet     */
-/*  leaves a spiral behind it as it chases the Sun.                            */
-/*                                                                            */
-/*  One thing here is drawn for looks rather than for truth, and it is worth   */
-/*  naming. By default the orbits are swung square to the Sun's course, which  */
-/*  makes every wake a helix about one shared axis and lays the coils out      */
-/*  parallel. That is the geometry of the popular "vortex" video, and it is    */
-/*  not ours: the real ecliptic leans 53 degrees to the course, so the real    */
-/*  helices lean too. alignToCourse={0} gives you that instead.                */
-/* -------------------------------------------------------------------------- */
-
-export type Planet = {
+type Planet = {
   name: string;
-  /** Semi-major axis, in astronomical units. */
   a: number;
-  /** Eccentricity. */
   e: number;
-  /** Inclination to the ecliptic, in degrees. */
   i: number;
-  /** Longitude of the ascending node, in degrees. */
   node: number;
-  /** Argument of perihelion, in degrees. */
   peri: number;
-  /** Mean anomaly at the J2000 epoch, in degrees. */
   M0: number;
   color: string;
-  /** Dot radius in px. Not to scale — nothing would be visible if it were. */
   size: number;
-  /** Per-planet brightness multiplier. */
   glow?: number;
 };
 
-export interface OrbitalHeroSectionProps
-  extends React.HTMLAttributes<HTMLDivElement> {
-  planets?: Planet[];
-  yearSeconds?: number;
-  trailYears?: number;
-  compress?: number;
-  maxTurns?: number;
-  planeSpread?: number;
-  eccentricity?: number;
-  alignToCourse?: number;
-  driftSpeed?: number;
-  apex?: [number, number];
-  viewRadius?: number;
-  tilt?: number;
-  spin?: number;
-  roll?: number;
-  lead?: number;
-  focus?: [number, number];
-  scrim?: "none" | "left" | "right" | "top" | "bottom";
-  scrimStrength?: number;
-  starCount?: number;
-  glow?: number;
-  showOrbits?: boolean;
-  showSunTrack?: boolean;
-  interactive?: boolean;
-  paused?: boolean;
-  sunColor?: string;
-  children?: React.ReactNode;
-}
-
-export const SOLAR_SYSTEM: Planet[] = [
+const PLANETS: Planet[] = [
   { name: "Mercury", a: 0.38710, e: 0.20563, i: 7.005, node: 48.331, peri: 29.125, M0: 174.796, color: "#fff0d0", size: 2.2 },
   { name: "Venus",   a: 0.72333, e: 0.00677, i: 3.395, node: 76.680, peri: 54.853, M0: 50.115,  color: "#ffc65a", size: 3.4 },
   { name: "Earth",   a: 1.00000, e: 0.01671, i: 0.000, node: 348.739, peri: 114.208, M0: 357.517, color: "#5fd8ff", size: 3.8, glow: 1.1 },
@@ -85,14 +26,33 @@ export const SOLAR_SYSTEM: Planet[] = [
   { name: "Neptune", a: 30.0690, e: 0.00859, i: 1.770, node: 131.784, peri: 276.336, M0: 256.228, color: "#3f7dff", size: 4.4 },
 ];
 
-export const INNER_PLANETS: Planet[] = SOLAR_SYSTEM.slice(0, 4);
-
 const PLANE_FAN: Array<[number, number]> = [
   [58, 35], [27, 145], [71, 250], [40, 80],
   [84, 190], [33, 310], [62, 120], [15, 20],
 ];
 
 const ECC_FAN = [0.52, 0.34, 0.63, 0.44, 0.3, 0.58, 0.4, 0.68];
+
+const YEAR_SECONDS = 16;
+const TRAIL_YEARS = 2.6;
+const COMPRESS = 0.42;
+const MAX_TURNS = 3;
+const PLANE_SPREAD = 1;
+const ECCENTRICITY = 0.25;
+const ALIGN = 1;
+const DRIFT = 1.5;
+const APEX_LON = 272;
+const APEX_LAT = 53;
+const VIEW_RADIUS = 3.2;
+const TILT = 45;
+const SPIN = 252;
+const ROLL = 13.5;
+const LEAD = 0.1;
+const FOCUS_X = 0.78;
+const FOCUS_Y = 0.42;
+const STAR_COUNT = 1400;
+const GLOW = 0.9;
+const SUN = "#FFF2CC";
 
 const TAU = Math.PI * 2;
 const RAD = Math.PI / 180;
@@ -110,17 +70,11 @@ function eccentricAnomaly(M: number, e: number): number {
 }
 
 function parseRGB(color: string): [number, number, number] {
-  const c = color.trim();
-  if (c[0] === "#") {
-    const hex = c.slice(1);
-    const full =
-      hex.length === 3 ? hex[0] + hex[0] + hex[1] + hex[1] + hex[2] + hex[2] : hex.slice(0, 6);
-    const n = parseInt(full, 16);
-    return [(n >> 16) & 255, (n >> 8) & 255, n & 255];
-  }
-  const m = c.match(/(\d+(?:\.\d+)?)/g);
-  if (m && m.length >= 3) return [+m[0], +m[1], +m[2]];
-  return [255, 255, 255];
+  const hex = color.slice(1);
+  const full =
+    hex.length === 3 ? hex[0] + hex[0] + hex[1] + hex[1] + hex[2] + hex[2] : hex.slice(0, 6);
+  const n = parseInt(full, 16);
+  return [(n >> 16) & 255, (n >> 8) & 255, n & 255];
 }
 
 function mulberry32(seed: number) {
@@ -134,49 +88,9 @@ function mulberry32(seed: number) {
   };
 }
 
-export function OrbitalHeroSection({
-  planets = SOLAR_SYSTEM,
-  yearSeconds = 16,
-  trailYears = 2.6,
-  compress = 0.42,
-  maxTurns = 3,
-  planeSpread = 1,
-  eccentricity = 0.25,
-  alignToCourse = 1,
-  driftSpeed = 1.5,
-  apex = [272, 53],
-  viewRadius = 3.4,
-  tilt = 45,
-  spin = 252,
-  roll = 13.5,
-  lead = 0.12,
-  focus = [0.5, 0.5],
-  scrim = "none",
-  scrimStrength = 0.88,
-  starCount = 1500,
-  glow = 1,
-  showOrbits = false,
-  showSunTrack = true,
-  interactive = true,
-  paused = false,
-  sunColor = "#FFF2CC",
-  className = "",
-  children,
-  ...rest
-}: OrbitalHeroSectionProps) {
+export function OrbitalHeroSection() {
   const hostRef = useRef<HTMLDivElement | null>(null);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
-
-  const props = useRef({
-    planets, yearSeconds, trailYears, compress, maxTurns, planeSpread, eccentricity, alignToCourse, driftSpeed, apex,
-    viewRadius, tilt, spin, roll, lead, focus, scrim, scrimStrength, starCount, glow, showOrbits, showSunTrack,
-    interactive, paused, sunColor,
-  });
-  props.current = {
-    planets, yearSeconds, trailYears, compress, maxTurns, planeSpread, eccentricity, alignToCourse, driftSpeed, apex,
-    viewRadius, tilt, spin, roll, lead, focus, scrim, scrimStrength, starCount, glow, showOrbits, showSunTrack,
-    interactive, paused, sunColor,
-  };
 
   useEffect(() => {
     const host = hostRef.current;
@@ -345,18 +259,10 @@ export function OrbitalHeroSection({
       R3.x = x; R3.y = y; R3.z = z;
     }
 
-    let elems: Elements[] = [];
-    let elemsKey = "";
-    function syncElements() {
-      const C = props.current;
-      const key =
-        C.compress + "/" + C.planeSpread + "/" + C.eccentricity + "/" +
-        C.alignToCourse + "/" + C.apex[0] + "," + C.apex[1] + "/" +
-        C.planets.map((p) => p.name + p.a + p.e + p.color).join("|");
-      if (key === elemsKey) return;
-      elemsKey = key;
-      elems = C.planets.map((p, idx) => elementsOf(p, idx, C.compress, C.planeSpread, C.eccentricity, C.alignToCourse));
-    }
+    setApex(APEX_LON, APEX_LAT);
+    const elems = PLANETS.map((p, idx) =>
+      elementsOf(p, idx, COMPRESS, PLANE_SPREAD, ECCENTRICITY, ALIGN)
+    );
 
     let D_NEAR = 60;
     let D_FAR = 1400;
@@ -395,7 +301,7 @@ export function OrbitalHeroSection({
     function buildStars() {
       starN = Math.max(
         60,
-        Math.round(props.current.starCount * Math.min(2, (width * height) / (1440 * 900)))
+        Math.round(STAR_COUNT * Math.min(2, (width * height) / (1440 * 900)))
       );
       sx = new Float64Array(starN);
       sy = new Float64Array(starN);
@@ -444,26 +350,16 @@ export function OrbitalHeroSection({
     }
 
     function layout() {
-      const C = props.current;
-      pxPerAU = (Math.min(width, height) * 0.5) / C.viewRadius;
-      camDist = C.viewRadius * 3.1;
+      pxPerAU = (Math.min(width, height) * 0.5) / VIEW_RADIUS;
+      camDist = VIEW_RADIUS * 3.1;
       D_NEAR = camDist * 5;
       D_FAR = camDist * 120;
-      setApex(C.apex[0], C.apex[1]);
-      setCamera(C.spin, C.tilt, C.roll);
+      setApex(APEX_LON, APEX_LAT);
+      setCamera(SPIN, TILT, ROLL);
     }
-
-    let pointerX = 0, pointerY = 0, camX = 0, camY = 0;
-    function onPointer(ev: PointerEvent) {
-      if (!props.current.interactive) return;
-      const rect = host!.getBoundingClientRect();
-      pointerX = ((ev.clientX - rect.left) / rect.width - 0.5) * 2;
-      pointerY = ((ev.clientY - rect.top) / rect.height - 0.5) * 2;
-    }
-    function onLeave() { pointerX = 0; pointerY = 0; }
 
     function drawSun(k: number, t: number) {
-      const [r, g, b] = parseRGB(props.current.sunColor);
+      const [r, g, b] = parseRGB(SUN);
       const pulse = 1 + Math.sin(t * 2.1) * 0.02;
       const R = Math.max(5, Math.min(width, height) * 0.013) * pulse;
 
@@ -503,25 +399,19 @@ export function OrbitalHeroSection({
     }
 
     function render(t: number) {
-      const C = props.current;
-      const k = C.glow;
+      const k = GLOW;
       layout();
-      syncElements();
 
-      camX += (pointerX - camX) * 0.04;
-      camY += (pointerY - camY) * 0.04;
-      setCamera(C.spin + camX * 7, C.tilt + camY * 5, C.roll);
+      dist = DRIFT * t;
 
-      dist = C.driftSpeed * t;
-
-      cx = width * C.focus[0];
-      cy = height * C.focus[1];
+      cx = width * FOCUS_X;
+      cy = height * FOCUS_Y;
       project(DIR.x, DIR.y, DIR.z);
       if (P.ok) {
         const dxs = P.x - cx;
         const dys = P.y - cy;
         const len = Math.hypot(dxs, dys) || 1;
-        const push = Math.min(width, height) * C.lead;
+        const push = Math.min(width, height) * LEAD;
         cx += (dxs / len) * push;
         cy += (dys / len) * push;
       }
@@ -569,55 +459,29 @@ export function OrbitalHeroSection({
         }
       }
 
-      if (C.showSunTrack) {
-        const back = C.driftSpeed * C.trailYears * 1.1;
-        project(0, 0, 0);
-        const hx = P.x, hy = P.y;
-        project(-DIR.x * back, -DIR.y * back, -DIR.z * back);
-        if (P.ok) {
-          const grad = ctx!.createLinearGradient(hx, hy, P.x, P.y);
-          grad.addColorStop(0, `rgba(255,246,214,${k})`);
-          grad.addColorStop(0.45, `rgba(255,206,110,${0.55 * k})`);
-          grad.addColorStop(1, "rgba(255,180,80,0)");
-          ctx!.strokeStyle = grad;
-          ctx!.lineCap = "round";
-          ctx!.beginPath();
-          ctx!.moveTo(hx, hy);
-          ctx!.lineTo(P.x, P.y);
-          ctx!.lineWidth = 11;
-          ctx!.globalAlpha = 0.16;
-          ctx!.stroke();
-          ctx!.lineWidth = 4;
-          ctx!.globalAlpha = 0.3;
-          ctx!.stroke();
-          ctx!.globalAlpha = 1;
-          ctx!.lineWidth = 1.8;
-          ctx!.stroke();
-        }
-      }
-
-      if (C.showOrbits) {
-        for (const el of elems) {
-          const [r, g, b] = el.rgb;
-          const steps = 160;
-          ctx!.beginPath();
-          let started = false;
-          for (let q = 0; q <= steps; q++) {
-            const E = (q / steps) * TAU;
-            const M = E - el.e * Math.sin(E);
-            helio(el, M, C.compress);
-            project(R3.x, R3.y, R3.z);
-            if (!P.ok) { started = false; continue; }
-            if (!started) { ctx!.moveTo(P.x, P.y); started = true; }
-            else ctx!.lineTo(P.x, P.y);
-          }
-          ctx!.strokeStyle = `rgba(${r},${g},${b},${0.045 * k})`;
-          ctx!.lineWidth = 4;
-          ctx!.stroke();
-          ctx!.strokeStyle = `rgba(${r},${g},${b},${0.3 * k})`;
-          ctx!.lineWidth = 1;
-          ctx!.stroke();
-        }
+      const back = DRIFT * TRAIL_YEARS * 1.1;
+      project(0, 0, 0);
+      const hx = P.x, hy = P.y;
+      project(-DIR.x * back, -DIR.y * back, -DIR.z * back);
+      if (P.ok) {
+        const grad = ctx!.createLinearGradient(hx, hy, P.x, P.y);
+        grad.addColorStop(0, `rgba(255,246,214,${k})`);
+        grad.addColorStop(0.45, `rgba(255,206,110,${0.55 * k})`);
+        grad.addColorStop(1, "rgba(255,180,80,0)");
+        ctx!.strokeStyle = grad;
+        ctx!.lineCap = "round";
+        ctx!.beginPath();
+        ctx!.moveTo(hx, hy);
+        ctx!.lineTo(P.x, P.y);
+        ctx!.lineWidth = 11;
+        ctx!.globalAlpha = 0.16;
+        ctx!.stroke();
+        ctx!.lineWidth = 4;
+        ctx!.globalAlpha = 0.3;
+        ctx!.stroke();
+        ctx!.globalAlpha = 1;
+        ctx!.lineWidth = 1.8;
+        ctx!.stroke();
       }
 
       type Shot = { el: Elements; x: number; y: number; depth: number; s: number };
@@ -626,7 +490,7 @@ export function OrbitalHeroSection({
       for (const el of elems) {
         const [r, g, b] = el.rgb;
         const bright = (el.p.glow ?? 1) * k;
-        const span = Math.min(C.trailYears, C.maxTurns * el.period);
+        const span = Math.min(TRAIL_YEARS, MAX_TURNS * el.period);
         const turns = span / el.period;
         const N = Math.max(
           48,
@@ -639,8 +503,8 @@ export function OrbitalHeroSection({
         for (let q = 0; q <= N; q++) {
           const age = (1 - q / N) * span;
           const M = el.M0 + el.n * (t - age);
-          helio(el, M, C.compress);
-          const back = C.driftSpeed * age;
+          helio(el, M, COMPRESS);
+          const back = DRIFT * age;
           project(R3.x - DIR.x * back, R3.y - DIR.y * back, R3.z - DIR.z * back);
           xs[q] = P.x; ys[q] = P.y; okArr[q] = P.ok ? 1 : 0;
           if (q === N && P.ok) {
@@ -703,21 +567,6 @@ export function OrbitalHeroSection({
       while (idx < shots.length) drawShot(shots[idx++]);
 
       ctx!.globalCompositeOperation = "source-over";
-
-      if (C.scrim !== "none") {
-        const s = Math.max(0, Math.min(1, C.scrimStrength));
-        const g =
-          C.scrim === "left" ? ctx!.createLinearGradient(0, 0, width, 0)
-          : C.scrim === "right" ? ctx!.createLinearGradient(width, 0, 0, 0)
-          : C.scrim === "top" ? ctx!.createLinearGradient(0, 0, 0, height)
-          : ctx!.createLinearGradient(0, height, 0, 0);
-        for (let q = 0; q <= 12; q++) {
-          const x = q / 12;
-          g.addColorStop(x, `rgba(0,0,0,${(s * Math.pow(1 - x, 2.4)).toFixed(4)})`);
-        }
-        ctx!.fillStyle = g;
-        ctx!.fillRect(0, 0, width, height);
-      }
     }
 
     function tick(now: number) {
@@ -726,9 +575,7 @@ export function OrbitalHeroSection({
       if (!visible) { lastFrame = now; return; }
       const dt = lastFrame ? Math.min(0.05, (now - lastFrame) / 1000) : 0;
       lastFrame = now;
-      if (!props.current.paused && !reduced) {
-        years += dt / Math.max(0.1, props.current.yearSeconds);
-      }
+      if (!reduced) years += dt / YEAR_SECONDS;
       render(years);
     }
 
@@ -738,7 +585,7 @@ export function OrbitalHeroSection({
 
     const ro = new ResizeObserver(() => {
       resize();
-      if (reduced || props.current.paused) render(years);
+      if (reduced) render(years);
     });
     ro.observe(host);
 
@@ -750,8 +597,6 @@ export function OrbitalHeroSection({
 
     const onVisibility = () => { visible = !document.hidden; lastFrame = 0; };
     document.addEventListener("visibilitychange", onVisibility);
-    host.addEventListener("pointermove", onPointer);
-    host.addEventListener("pointerleave", onLeave);
 
     return () => {
       running = false;
@@ -759,21 +604,12 @@ export function OrbitalHeroSection({
       ro.disconnect();
       io.disconnect();
       document.removeEventListener("visibilitychange", onVisibility);
-      host.removeEventListener("pointermove", onPointer);
-      host.removeEventListener("pointerleave", onLeave);
     };
   }, []);
 
   return (
-    <div
-      ref={hostRef}
-      className={`relative isolate h-full w-full overflow-hidden bg-black ${className}`}
-      {...rest}
-    >
+    <div ref={hostRef} className="relative isolate h-full w-full overflow-hidden bg-black">
       <canvas ref={canvasRef} aria-hidden="true" className="absolute inset-0 h-full w-full" />
-      {children ? <div className="relative z-10 h-full w-full">{children}</div> : null}
     </div>
   );
 }
-
-export default OrbitalHeroSection;
