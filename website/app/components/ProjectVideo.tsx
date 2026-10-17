@@ -16,6 +16,16 @@ export function ProjectVideo({ src }: { src: string }) {
     () => window.matchMedia('(prefers-reduced-motion: reduce)').matches,
     () => false
   )
+  const narrow = useSyncExternalStore(
+    (onChange) => {
+      const mq = window.matchMedia('(max-width: 767px)')
+      mq.addEventListener('change', onChange)
+      return () => mq.removeEventListener('change', onChange)
+    },
+    () => window.matchMedia('(max-width: 767px)').matches,
+    () => false
+  )
+  const file = narrow ? src.replace(/\.mp4$/i, '-540.mp4') : src
 
   useEffect(() => {
     const el = containerRef.current
@@ -38,7 +48,7 @@ export function ProjectVideo({ src }: { src: string }) {
     if (!el || !show) return
     if (inView) void el.play().catch(() => {})
     else el.pause()
-  }, [inView, show])
+  }, [inView, show, file])
 
   return (
     <div ref={containerRef} className="relative h-full w-full">
@@ -49,10 +59,11 @@ export function ProjectVideo({ src }: { src: string }) {
           className="h-full w-full rounded-2xl object-cover"
           loop
           muted
-          preload="none"
+          preload="metadata"
           autoPlay
+          key={file}
         >
-          <source src={src} type="video/mp4" />
+          <source src={file} type="video/mp4" />
         </video>
       ) : (
         <div className="h-full w-full rounded-2xl bg-white/[0.06]" aria-hidden />
